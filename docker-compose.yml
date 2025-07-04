@@ -15,9 +15,16 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "80:80"
+      - "3000:3000"  # 80 for production container
+    volumes:
+      - ./frontend:/app  # Volumn to mount original files
+      - /app/node_modules  # avoid deleting nodes dependencies
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # Aide à détecter les changements de fichiers
+      - WDS_SOCKET_PORT=0  # Pour WebpackDevServer
     depends_on:
       - backend
+  
   
   db:
     image: postgres:13

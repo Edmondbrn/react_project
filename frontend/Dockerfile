@@ -1,18 +1,19 @@
-# ./frontend/Dockerfile
-FROM node:14 as build
+FROM node:16-alpine
 
 WORKDIR /app
 
+# Create node user 
+RUN chown -R node:node /app
+
+# install depedencies
 COPY package*.json ./
 RUN npm install
 
-COPY . .
-RUN npm run build
+# Change permission to avoid docker crash
+RUN mkdir -p node_modules/.cache && chmod -R 755 node_modules/.cache
 
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# use Node user
+USER node
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# startr in dev mode
+CMD ["npm", "start"]
