@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     
     # Local apps
-    'api',
+    'users',
 ]
 
 

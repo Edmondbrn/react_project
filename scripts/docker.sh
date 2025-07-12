@@ -20,6 +20,7 @@ function show_help {
   echo "  logs-front  View frontend logs only"
   echo "  shell-back  Open a shell in the backend container"
   echo "  shell-front Open a shell in the frontend container"
+  echo "  django-migration Perform the update of the database based on Django models"
   echo "  ps          Show container status"
 }
 
@@ -55,6 +56,10 @@ case "$1" in
     ;;
   ps)
     docker-compose ps
+    ;;
+  django-migration)
+    docker-compose exec backend python manage.py makemigrations
+    docker-compose exec backend python manage.py migrate
     ;;
   *)
     show_help
