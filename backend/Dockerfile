@@ -6,11 +6,17 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Copy project files
+# Install PostgreSQL client
+RUN apt-get update && apt-get install -y postgresql-client
+
+# Copy project files and wait script
 COPY . .
+# Make it executable
+RUN chmod a+x wait_for_postgres.sh
+
 
 # Set the working directory to where manage.py is located
 WORKDIR /app
 
 # Run the server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["./wait_for_postgres.sh", "db", "python", "manage.py", "runserver", "0.0.0.0:8000"]
