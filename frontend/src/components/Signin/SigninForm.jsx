@@ -39,9 +39,10 @@ function SigninForm() {
         try {
             // Adapter les champs selon ton modèle backend
             const response = await axios.post('http://localhost:8000/api/users/', {
+                username: "test",
                 first_name: formData.username,
                 last_name: 'default', // ou autre champ si besoin
-                email: 'default',     // ou autre champ si besoin
+                email: 'default@default.com',     // ou autre champ si besoin
                 password: formData.password
             });
             setSuccess(true);

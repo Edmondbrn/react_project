@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .models.user import User
 from .serializers import UserSerializer
+from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny
 
 
