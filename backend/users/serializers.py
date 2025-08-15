@@ -28,6 +28,22 @@ class UserSerializer (serializers.ModelSerializer):
         if User.objects.filter(email = value).exists():
             raise serializers.ValidationError(f"This email {value} is already linked to an account.")
         return value
+    
+    def validate_username(self, value : str):
+        """ Method to ckeck if the username does not already exists in the database
+
+        Args:
+            value (str): the given username from the REACT
+
+        Raises:
+            serializers.ValidationError: if the username already exists in the database
+
+        Returns:
+            str: the valid username
+        """
+        if User.objects.filter(username = value).exists():
+            raise serializers.ValidationError(f"This username {value} is already linked to an account.")
+        return value
 
     def create(self, validated_data):
         user = User.objects.create_user(

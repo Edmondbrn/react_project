@@ -63,7 +63,7 @@ function useSigninForm() {
         } catch (error) { // handle error
             let apiError = "Error while creating the user";
             if (error.response) {
-                // backend erro
+                // backend error
                 if (typeof error.response.data === "string") {
                     apiError = error.response.data;
                 } else if (typeof error.response.data === "object") { // join messages if various

@@ -7,7 +7,7 @@ import useSigninForm from "./useSigninForm"
  */
 function SigninForm() {
 
-    const {formData, handleChange, errors, success, handleSubmit} = useSigninForm();
+    const {formData, changeHandler, errors, success, handleSubmit} = useSigninForm();
 
     return (
         <div className='p-3 bg-info'>
@@ -24,7 +24,7 @@ function SigninForm() {
                             name="username"
                             type="text"
                             value={formData.username}
-                            onChange={handleChange}
+                            onChange={changeHandler}
                             error={errors.username}
                         />
 
@@ -33,7 +33,7 @@ function SigninForm() {
                             name="last_name"
                             type="text"
                             value={formData.last_name}
-                            onChange={handleChange}
+                            onChange={changeHandler}
                             error={errors.last_name}
                         />
 
@@ -42,7 +42,7 @@ function SigninForm() {
                             name="first_name"
                             type="text"
                             value={formData.first_name}
-                            onChange={handleChange}
+                            onChange={changeHandler}
                             error={errors.first_name}
                         />
 
@@ -51,7 +51,7 @@ function SigninForm() {
                             name="email"
                             type="text"
                             value={formData.email}
-                            onChange={handleChange}
+                            onChange={changeHandler}
                             error={errors.email}
                         />
 
@@ -60,7 +60,7 @@ function SigninForm() {
                             name="password"
                             type="password"
                             value={formData.password}
-                            onChange={handleChange}
+                            onChange={changeHandler}
                             error={errors.password}
                         />
 
@@ -69,7 +69,7 @@ function SigninForm() {
                             name="confirmPassword"
                             type="password"
                             value={formData.confirmPassword}
-                            onChange={handleChange}
+                            onChange={changeHandler}
                             error={errors.confirmPassword}
                         />
 
