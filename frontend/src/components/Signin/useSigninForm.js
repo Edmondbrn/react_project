@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../api/axios';
+import { handleChange } from '../FormUtils/handleChangeForm';
 
 function useSigninForm() {
     const [formData, setFormData] = useState({
@@ -12,19 +13,7 @@ function useSigninForm() {
         });
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
-
-
-      /**
-     * Function to update the form data to upload after a change in the form
-     * @param {change event} e 
-     */
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
+    const changeHandler = handleChange(formData, setFormData);
 
     /**
      * Function that checks if all the fields are correct for the inscription
@@ -88,7 +77,7 @@ function useSigninForm() {
         }
     };
     
-  return { formData, handleChange, errors, success, handleSubmit };
+  return { formData, changeHandler, errors, success, handleSubmit };
 }
 
 export default useSigninForm;
