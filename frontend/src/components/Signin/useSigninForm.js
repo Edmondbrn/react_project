@@ -1,5 +1,5 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import axiosInstance from '../../api/axios';
 
 function useSigninForm() {
     const [formData, setFormData] = useState({
@@ -63,7 +63,7 @@ function useSigninForm() {
         }
         // call the API
         try {
-            const response = await axios.post('http://localhost:8000/api/users/', {
+            const response = await axiosInstance.post('/api/users/', {
                 username: formData.username,
                 first_name: formData.username,
                 last_name: formData.last_name,
