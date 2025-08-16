@@ -55,7 +55,6 @@ function useLoginForm() {
         // call the API
         try {
             const userExist = await checkUserExists(formData.username);
-            console.log(userExist);
             if (!userExist) {
                 setErrors({"api" : "The username does not exist."})
                 return;
