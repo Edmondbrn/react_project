@@ -4,10 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.request import Request
-from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class UserListCreateAPIView(generics.ListCreateAPIView):
@@ -16,6 +16,7 @@ class UserListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = [AllowAny] # TODO to test, to remove
 
 @api_view(["POST"])
+@permission_classes([AllowAny])  # let anonymous to connect
 def login_user(request : Request):
     username = request.data.get("username")
     password = request.data.get("password")
@@ -28,20 +29,25 @@ def login_user(request : Request):
     user : User = authenticate(username = username, password = password)
 
     if user:
+        # generate JWT token
+        refresh = RefreshToken.for_user(user)
+        access_token = refresh.access_token
         return Response({
             "success": True,
             "user_id": user.id,
-            "token": "BIG token"
+            "username": user.username,
+            "access_token": str(access_token),
+            "refresh_token": str(refresh)
         }, status =  status.HTTP_200_OK)
     else:
         return Response({
-            "error", "Invalid credentials"
+            "error": "Invalid credentials"
         }, status = status.HTTP_401_UNAUTHORIZED)
     
 
 @api_view(["POST"])
+@permission_classes([AllowAny])  # let anonymous to connect
 def check_user_exists(request : Request):
-
     username = request.data.get("username")
 
     if not username:
@@ -49,7 +55,7 @@ def check_user_exists(request : Request):
             "error": "Username is required"
             }, status = status.HTTP_400_BAD_REQUEST)
     
-    user_exists = User.objects.filter(username = username).exists
+    user_exists = User.objects.filter(username = username).exists()
 
     return Response({
         "exists": user_exists

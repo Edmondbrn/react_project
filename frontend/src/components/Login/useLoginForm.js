@@ -28,13 +28,32 @@ function useLoginForm() {
 
     const checkUserExists = async (username) => {
         try {
-            const response = await axiosInstance.post("/api/check-user", {
+            const response = await axiosInstance.post("/api/check-user/", {
                 "username": username
             })
             return response.data.exists;
         } catch (error) {
             console.error("Error while checking username.");
             return false;
+        }
+    }
+
+    const checkUserAuthentification = async (username, password) => {
+        try {
+            const response = await axiosInstance.post("/api/login/", {
+                "username" : username,
+                "password": password
+            })
+            if (response.data.success) { // if authentificated, save token and info in cookies
+                localStorage.setItem("access_token", response.data.access_token);
+                localStorage.setItem("refresh_token", response.data.refresh_token);
+                localStorage.setItem("user_id", response.data.user_id);
+                localStorage.setItem("username", response.data.username);
+            }
+            return response.data;
+
+        } catch (error) {
+            return {"success": false};
         }
     }
 
@@ -56,26 +75,23 @@ function useLoginForm() {
         try {
             const userExist = await checkUserExists(formData.username);
             if (!userExist) {
-                setErrors({"api" : "The username does not exist."})
+                setErrors({"api" : "The username or the password is incorrect."})
                 return;
             }
+            const userData = await checkUserAuthentification(formData.username, formData.password);
+            if (userData.success) {
+                console.log(localStorage);
+            } else {
+                setErrors({"api" : "The username or the password is incorrect."});
+            }
+            return;
+
         } catch (error) { // handle error
-            // let apiError = "Error while connecting.";
-            // if (error.response) {
-            //     // backend error
-            //     if (typeof error.response.data === "string") {
-            //         apiError = error.response.data;
-            //     } else if (typeof error.response.data === "object") { // join messages if various
-            //         apiError = Object.values(error.response.data).flat().join(' ');
-            //     }
-            // } else if (error.request) {
-            //     apiError = "Server connection impossible";
-            // }
-            // setErrors({ api: apiError });
+            let apiError = "Error while connecting.";
+            setErrors({ api: apiError });
             console.error(error);
         }
     };
-
   return { formData, changeHandler, errors, handleSubmit };
 }
 
