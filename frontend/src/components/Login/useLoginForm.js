@@ -11,6 +11,7 @@ function useLoginForm() {
     });
 
     const [errors, setErrors] = useState({});
+    const [user, setUser] = useState({});
 
     const changeHandler = handleChange(formData, setFormData);
 
@@ -43,12 +44,16 @@ function useLoginForm() {
             const response = await axiosInstance.post("/api/login/", {
                 "username" : username,
                 "password": password
-            })
+            }, {
+                withCredentials: true // import cookies
+            });
+            console.log("is authentificated:");
+            console.log(response.data);
             if (response.data.success) { // if authentificated, save token and info in cookies
-                localStorage.setItem("access_token", response.data.access_token);
-                localStorage.setItem("refresh_token", response.data.refresh_token);
-                localStorage.setItem("user_id", response.data.user_id);
-                localStorage.setItem("username", response.data.username);
+                setUser({
+                    id: response.data.user_id,
+                    username: response.data.username,
+                })
             }
             return response.data;
 
@@ -80,7 +85,7 @@ function useLoginForm() {
             }
             const userData = await checkUserAuthentification(formData.username, formData.password);
             if (userData.success) {
-                console.log(localStorage);
+                console.log(user);
             } else {
                 setErrors({"api" : "The username or the password is incorrect."});
             }
