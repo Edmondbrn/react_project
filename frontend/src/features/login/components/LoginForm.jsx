@@ -1,11 +1,15 @@
+import { useState } from "react";
 import FormField from "../../../shared/ui/components/FormField";
 import LoadingFormBtn from "../../../shared/ui/components/LoadingFormBtn";
 import useLoginForm from "../hooks/useLoginForm";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
+
 
 
 function LoginForm() {
 
     const {formData, changeHandler, errors, handleSubmit, isLoading} = useLoginForm();
+    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <div className='p-3 bg-info'>
@@ -24,19 +28,30 @@ function LoginForm() {
                             error = {errors.username}
                         />
 
-                        <FormField
-                            label = "Password"
-                            name = "password"
-                            type = "password"
-                            value = {formData.password}
-                            onChange = {changeHandler}
-                            error = {errors.password}
-                        />
+                        <div className="input-group mb-3">
+                            <input 
+                                type={showPassword ? "text" : "password"} 
+                                className="form-control"
+                                name="password"
+                                value={formData.password}
+                                onChange={changeHandler}
+                            />
+                            <button 
+                                type="button" 
+                                className="btn btn-outline-secondary"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <BsEye />: <BsEyeSlash />}
+                                
+                            </button>
+                        </div>
+
 
                         <LoadingFormBtn
                             text = "Connect"
                             isLoading = {isLoading}
                         />
+
                     </form>
                 </div> 
             </div>
