@@ -1,0 +1,14 @@
+@keyframes morph {
+  0% {
+    border-radius: "35% 65% 60% 40% / 70% 30% 70% 30%";
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    border-radius: "60% 40% 30% 70% / 40% 50% 60% 50%";
+    transform: translate(20px, 20px) rotate(2deg);
+  }
+  100% {
+    border-radius: "35% 65% 60% 40% / 70% 30% 70% 30%";
+    transform: translate(0, 0) rotate(0deg);
+  }
+}

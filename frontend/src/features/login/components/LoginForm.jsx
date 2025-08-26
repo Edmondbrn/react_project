@@ -4,71 +4,96 @@ import LoadingFormBtn from "../../../shared/ui/components/LoadingFormBtn";
 import useLoginForm from "../hooks/useLoginForm";
 import { BsEye, BsEyeSlash, BsFillPersonFill } from "react-icons/bs";
 import Href from "../../../shared/ui/components/Href";
-import { handleChange } from "../../../shared/ui/hooks/handleChangeForm";
-
-
+import GradientBackground from "../../../shared/ui/components/GradientBackground";
 
 function LoginForm() {
-
     const {formData, changeHandler, errors, handleSubmit, isLoading} = useLoginForm();
     const [showPassword, setShowPassword] = useState(false);
 
-    return (
-    <div className='p-3 bg-info vh-100 d-flex justify-content-center align-items-center'>
-        <div className="card shadow-sm p-4">
-            <h2 className="text-center mb-4">Login</h2>
-
-                {errors.api && <div className="alert alert-danger">{errors.api}</div>}
-
-                <form onSubmit={handleSubmit}>
-                    <FormField
-                        label = "Username"
-                        name = "username"
-                        type = "text"
-                        value = {formData.username}
-                        onChange = {changeHandler}
-                        error = {errors.username}
-                        icon = {<BsFillPersonFill/>}
-                    />
-
-
-                    <div className="input-group mb-3">
-                        <input 
-                            type={showPassword ? "text" : "password"} 
-                            className="form-control"
-                            name="password"
-                            style = {{fontStyle: "italic"}}
-                            value={formData.password}
+return (
+        <GradientBackground>
+            {/* Login form card */}
+            <div className="card shadow p-4 rounded-4" 
+                style={{
+                    maxWidth: "400px",
+                    width: "100%",
+                    border: "none",
+                    transition: "all 0.3s ease",
+                    backdropFilter: "blur(10px)",
+                    background: "rgba(255, 255, 255, 0.9)",
+                    zIndex: 1
+                }}>
+                    <h2 className="text-center mb-4 fw-bold" style={{color: "#333"}}>Welcome Back</h2>
+                    
+                    {errors.api && 
+                        <div className="alert alert-danger py-2 mb-4 rounded-3 shadow-sm">
+                            {errors.api}
+                        </div>
+                    }
+                    {/* Login form username + password and button */}
+                    <form onSubmit={handleSubmit}>
+                        <FormField
+                            label="Username"
+                            name="username"
+                            type="text"
+                            value={formData.username}
                             onChange={changeHandler}
-                            placeholder = "Enter your password"
+                            error={errors.username}
+                            icon={<BsFillPersonFill size={18} />}
                         />
 
-                        <button 
-                                type="button" 
-                                className="btn btn-outline-secondary"
-                                onClick={() => setShowPassword(!showPassword)}
-                        >
-                                {showPassword ? <BsEye />: <BsEyeSlash />}
-                                
-                        </button>
-                    </div>
+                        <div className="mb-4">
+                            <label className="form-label">Password</label>
+                            <div className="input-group">
+                                <input 
+                                    type={showPassword ? "text" : "password"} 
+                                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={changeHandler}
+                                    placeholder="Enter your password"
+                                    style={{
+                                        fontSize: "0.95rem"
+                                    }}
+                                />
+                                <button 
+                                    type="button" 
+                                    className="btn btn-outline-secondary"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    style={{
+                                        background: "white"
+                                    }}
+                                >
+                                    {showPassword ? <BsEye size={18} /> : <BsEyeSlash size={18} />}
+                                </button>
+                                {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+                            </div>
+                        </div>
 
-                    <Href 
-                        hrefLink = "signin/"
-                        hrefText = "Create an acount"
-                    />
+                        <Href 
+                            hrefLink="signin/"
+                            hrefText="Create an account"
+                            style={{fontSize: "0.9rem", color: "#2575fc"}}
+                        />
 
-                    <LoadingFormBtn
-                        text = "Connect"
-                        isLoading = {isLoading}
-                    />
+                        <div className="d-grid">
+                            <LoadingFormBtn
+                                text="Sign In"
+                                isLoading={isLoading}
+                                className="btn-primary btn-lg"
+                                style={{
+                                    background: "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)",
+                                    border: "none",
+                                    borderRadius: "8px",
+                                }}
+                            />
+                        </div>
+                    </form>
+                </div> 
 
-                </form>
-            </div>
-        </div>
-
+        </GradientBackground>
+        
     );
-
 }
 
 export default LoginForm;
