@@ -1,10 +1,11 @@
-import FormField from "../FormUtils/FormField";
-import useLoginForm from "./useLoginForm";
+import FormField from "../../../shared/ui/components/FormField";
+import useLoginForm from "../hooks/useLoginForm";
 
 
 function LoginForm() {
 
     const {formData, changeHandler, errors, handleSubmit} = useLoginForm();
+    let isLoading = true;
 
     return (
         <div className='p-3 bg-info'>
@@ -31,7 +32,18 @@ function LoginForm() {
                             onChange = {changeHandler}
                             error = {errors.password}
                         />
-                        <button type="submit" className='btn btn-primary my-3 w-100'>Connect</button>
+                        {/* <button type="submit" className='btn btn-primary my-3 w-100'>Connect</button> */}
+                        <button 
+                            type="submit" 
+                            className="btn btn-primary my-3 w-100" 
+                            disabled={isLoading}>
+                            {isLoading ? (
+                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            ) : (
+                                "Connect"
+                            )}
+                        </button>
+
                     </form>
                 </div> 
             </div>

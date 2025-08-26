@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axiosInstance from '../../api/axios';
-import { handleChange } from '../FormUtils/handleChangeForm';
+import axiosInstance from '../../../shared/utils/axiosConfiguration/axios';
+import { handleChange } from '../../../shared/ui/hooks/handleChangeForm';
 
 function useSigninForm() {
     const [formData, setFormData] = useState({

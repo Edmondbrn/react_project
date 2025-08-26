@@ -1,5 +1,5 @@
-import FormField from "../FormUtils/FormField"
-import useSigninForm from "./useSigninForm"
+import FormField from "../../../shared/ui/components/FormField";
+import useSigninForm from "../hooks/useSigninForm"
 
 /**
  * Function that will create the signin form for the signin page

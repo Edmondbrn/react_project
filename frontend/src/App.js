@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Signin from './pages/Signin.jsx';
-import Login from './pages/Login.jsx';
+import Login from './features/login/Login.jsx';
+import Signin from './features/signin/Signin.jsx';
 
 function App() {
 
