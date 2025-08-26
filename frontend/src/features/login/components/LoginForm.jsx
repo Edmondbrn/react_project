@@ -2,7 +2,9 @@ import { useState } from "react";
 import FormField from "../../../shared/ui/components/FormField";
 import LoadingFormBtn from "../../../shared/ui/components/LoadingFormBtn";
 import useLoginForm from "../hooks/useLoginForm";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { BsEye, BsEyeSlash, BsFillPersonFill } from "react-icons/bs";
+import Href from "../../../shared/ui/components/Href";
+import { handleChange } from "../../../shared/ui/hooks/handleChangeForm";
 
 
 
@@ -12,50 +14,59 @@ function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <div className='p-3 bg-info'>
-            <div className='d-flex justify-content-center align-items-center min-vh-100'>
-                <div className='container border border-2 border-black rounded w-50 p-3 shadow p-3 mb-5 bg-body'>
-                    <h2 className='text-center'>Login page</h2>   
-                    {errors.api && <div className="alert alert-danger">{errors.api}</div>}
+    <div className='p-3 bg-info vh-100 d-flex justify-content-center align-items-center'>
+        <div className="card shadow-sm p-4">
+            <h2 className="text-center mb-4">Login</h2>
 
-                    <form onSubmit={handleSubmit}>
-                        <FormField
-                            label = "Username"
-                            name = "username"
-                            type = "text"
-                            value = {formData.username}
-                            onChange = {changeHandler}
-                            error = {errors.username}
+                {errors.api && <div className="alert alert-danger">{errors.api}</div>}
+
+                <form onSubmit={handleSubmit}>
+                    <FormField
+                        label = "Username"
+                        name = "username"
+                        type = "text"
+                        value = {formData.username}
+                        onChange = {changeHandler}
+                        error = {errors.username}
+                        icon = {<BsFillPersonFill/>}
+                    />
+
+
+                    <div className="input-group mb-3">
+                        <input 
+                            type={showPassword ? "text" : "password"} 
+                            className="form-control"
+                            name="password"
+                            style = {{fontStyle: "italic"}}
+                            value={formData.password}
+                            onChange={changeHandler}
+                            placeholder = "Enter your password"
                         />
 
-                        <div className="input-group mb-3">
-                            <input 
-                                type={showPassword ? "text" : "password"} 
-                                className="form-control"
-                                name="password"
-                                value={formData.password}
-                                onChange={changeHandler}
-                            />
-                            <button 
+                        <button 
                                 type="button" 
                                 className="btn btn-outline-secondary"
                                 onClick={() => setShowPassword(!showPassword)}
-                            >
+                        >
                                 {showPassword ? <BsEye />: <BsEyeSlash />}
                                 
-                            </button>
-                        </div>
+                        </button>
+                    </div>
 
+                    <Href 
+                        hrefLink = "signin/"
+                        hrefText = "Create an acount"
+                    />
 
-                        <LoadingFormBtn
-                            text = "Connect"
-                            isLoading = {isLoading}
-                        />
+                    <LoadingFormBtn
+                        text = "Connect"
+                        isLoading = {isLoading}
+                    />
 
-                    </form>
-                </div> 
+                </form>
             </div>
         </div>
+
     );
 
 }
