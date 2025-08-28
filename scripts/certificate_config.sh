@@ -13,3 +13,5 @@ mkcert -install
 mkdir -p ./certs
 cd ./certs
 mkcert localhost 127.0.0.1 ::1
+
+# ADD THIS ECERTIFICATE TO YOUR BROWSER
