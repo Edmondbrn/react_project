@@ -19,4 +19,5 @@ RUN chmod a+x wait_for_postgres.sh
 WORKDIR /app
 
 # Run the server
-CMD ["./wait_for_postgres.sh", "db", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+# CMD ["./wait_for_postgres.sh", "db", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["./wait_for_postgres.sh", "db", "python", "run_ssl.py", "runserver"]

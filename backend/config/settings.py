@@ -64,12 +64,25 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# HTTPS config
+SECURE_SSL_REDIRECT = False  # In dev mode, do not force the redirection
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
 # Allow React dev server to access Django API
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://127.0.0.1:3000",
+    "http://127.0.0.1:3000",    
+    "https://localhost:3000",
+    "https://127.0.0.1:3000",
 ]
+
 CORS_ALLOW_CREDENTIALS = True # allow credentials for cookies
+SSL_CERTIFICATE = os.path.join(BASE_DIR, "certs", "localhost+2.pem")
+SSL_KEY = os.path.join(BASE_DIR, "certs", "localhost+2-key.pem")
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',

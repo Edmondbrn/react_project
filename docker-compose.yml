@@ -5,9 +5,11 @@ services:
   backend:
     build: ./backend
     volumes:
-      - ./backend:/app # avoid re building after python code change (remove in prod ?)
+      - ./backend:/app # avoid re building after python code change (TODO remove in prod ?)
+      - ./certs:/app/certs:ro # mount in ReadOnly mode the SSL certificate for https
     ports:
       - "8000:8000"
+      - "8443:8443" # HTTPS port
     environment:
       - DEBUG=${DEBUG}
       - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
@@ -25,6 +27,7 @@ services:
     volumes:
       - ./frontend:/app  # Volumn to mount original files
       - /app/node_modules  # avoid deleting nodes dependencies
+      - ./certs:/app/certs:ro # mount in ReadOnly mode the SSL certificate for https
     environment:
       - CHOKIDAR_USEPOLLING=true  # Aide à détecter les changements de fichiers
       - WDS_SOCKET_PORT=0  # Pour WebpackDevServer
