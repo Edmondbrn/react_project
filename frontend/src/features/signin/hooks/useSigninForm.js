@@ -60,6 +60,7 @@ function useSigninForm() {
                 password: formData.password
             });
             setSuccess(true);
+            setErrors({});
         } catch (error) { // handle error
             let apiError = "Error while creating the user";
             if (error.response) {

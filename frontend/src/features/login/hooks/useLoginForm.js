@@ -59,8 +59,6 @@ function useLoginForm() {
             }, {
                 withCredentials: true // import cookies
             });
-            console.log("is authentificated:");
-            console.log(response.data);
             if (response.data.success) { // if authentificated, save token and info in cookies
                 setUser({
                     id: response.data.user_id,
@@ -100,8 +98,8 @@ function useLoginForm() {
             }
             const userData = await checkUserAuthentification(formData.username, formData.password);
             if (userData.success) {
-                console.log(user);
                 setLoading(false);
+                window.location.href = "/homePage";
             } else {
                 setErrors({"api" : "The username or the password is incorrect."});
                 setLoading(false);
