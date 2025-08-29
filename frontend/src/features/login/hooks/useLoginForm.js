@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import axiosInstance from '../../../shared/utils/axiosConfiguration/axios';
 import { handleChange } from '../../../shared/ui/hooks/handleChangeForm';
+import { useAuth } from '../../../shared/utils/auth/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function useLoginForm() {
-
+    // context to update the authenticated status for every component
+    const {login} = useAuth();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         username: "",
@@ -98,8 +102,9 @@ function useLoginForm() {
             }
             const userData = await checkUserAuthentification(formData.username, formData.password);
             if (userData.success) {
+                login(); // update the context value for every components
                 setLoading(false);
-                window.location.href = "/homePage";
+                navigate("/homepage"); // light redirection
             } else {
                 setErrors({"api" : "The username or the password is incorrect."});
                 setLoading(false);

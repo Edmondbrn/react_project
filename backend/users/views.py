@@ -3,7 +3,7 @@ from .serializers import UserSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.request import Request
@@ -47,22 +47,21 @@ def login_user(request : Request):
             value = access_token,
             httponly = True,
             samesite = os.getenv("SAMESITE"),
-            secure = False, # TODO implement HTTPS 
+            secure = True,
             max_age = 600, # 10 minutes
             path = "/"
         )
 
-                # cookie httpOnly for the tokens
+        # cookie httpOnly for the tokens
         response.set_cookie(
             key = "refresh_token",
             value = refresh_token,
             httponly = True,
             samesite = os.getenv("SAMESITE"),
-            secure = False, # TODO implement HTTPS 
+            secure = True,
             max_age = 86400, # 1 day
             path = "/"
         )
-        print(request.COOKIES.get('refresh_token'))
         return response
 
 
@@ -108,7 +107,7 @@ def refresh_token(request : Request):
             value = access_token,
             httponly = True,
             samesite = os.getenv("SAMESITE"),
-            secure = False,
+            secure = True,
             max_age = 600,
             path = '/'
         )
@@ -123,3 +122,17 @@ def logout_user(request : Request):
     response.delete_cookie('access_token')
     response.delete_cookie('refresh_token')
     return response
+
+@api_view(["GET"])
+def check_auth(request : Request):
+    """API endpoint to test if a user is authentificated (return 401 error otherwiser)
+
+    Args:
+        request (Request): Request with cookies with JWT tokens
+
+    Returns:
+        bool: True is authentificated
+    """
+    return Response({
+        "authenticated": True
+    }, status = status.HTTP_200_OK)

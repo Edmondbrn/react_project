@@ -89,6 +89,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'users.auth.CookieJWTAuthentication', # custom class for JWT tokens in cookies
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }   

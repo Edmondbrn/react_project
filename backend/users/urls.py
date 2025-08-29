@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import UserListCreateAPIView, check_user_exists, login_user, refresh_token, logout_user
+from .views import UserListCreateAPIView, check_user_exists, login_user, refresh_token, logout_user, check_auth
 
 urlpatterns = [
     path('users/', UserListCreateAPIView.as_view(), name='user-list-create'),
     path('check-user/', check_user_exists, name='check-user-exists'),
     path('login/', login_user, name='user-login'),
     path('logout/', logout_user, name='logout'),
-    path('refresh-token/', refresh_token, name='refres-token'),
+    path('refresh-token/', refresh_token, name='refresh-token'),
+    path('check-auth/', check_auth, name='check-auth'),
 ]

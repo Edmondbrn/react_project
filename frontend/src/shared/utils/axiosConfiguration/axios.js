@@ -9,6 +9,7 @@ const axiosInstance = axios.create({
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest' // more secure (allow to verify if the request comes from the website and not from another one)
     },
     withCredentials: true // send cookies with the auth token
 });
@@ -31,7 +32,6 @@ axiosInstance.interceptors.response.use(
                 );
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
-                window.location.href = "/login";
                 return Promise.reject(refreshError);
             }
             

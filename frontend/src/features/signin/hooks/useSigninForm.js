@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../../shared/utils/axiosConfiguration/axios';
 import { handleChange } from '../../../shared/ui/hooks/handleChangeForm';
+import { useNavigate } from 'react-router-dom';
 
 function useSigninForm() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
             username: '',
             last_name: '',
@@ -61,6 +63,7 @@ function useSigninForm() {
             });
             setSuccess(true);
             setErrors({});
+            setTimeout(() => navigate("/login"), 2000); // redirect to login page after a small delay
         } catch (error) { // handle error
             let apiError = "Error while creating the user";
             if (error.response) {

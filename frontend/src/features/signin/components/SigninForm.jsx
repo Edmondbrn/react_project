@@ -30,7 +30,7 @@ function SigninForm() {
 
                 <h2 className='text-center mb-4 fw-bold'>Sign-up form</h2>
 
-                {success && <SuccessAlert successMessage = "Account created!"/> }
+                {success && <SuccessAlert successMessage = "Account created! You will be redirected to the login page in 2 seconds."/> }
                 {errors.api && <ErrorAlert errorMessage = {errors.api}/>}
 
                 <form onSubmit={handleSubmit}>
