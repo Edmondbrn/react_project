@@ -134,5 +134,7 @@ def check_auth(request : Request):
         bool: True is authentificated
     """
     return Response({
-        "authenticated": True
+        "authenticated": True,
+        "user_id": request.user.id,
+        "username": request.user.username
     }, status = status.HTTP_200_OK)
