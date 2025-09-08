@@ -78,7 +78,7 @@ return (
 
                     <div className="d-grid">
                         <LoadingFormBtn
-                            text="Sign In"
+                            text="Connect"
                             isLoading={isLoading}
                             className="btn-primary btn-lg"
                             style={{
