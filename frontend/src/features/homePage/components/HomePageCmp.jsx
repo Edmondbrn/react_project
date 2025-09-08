@@ -8,6 +8,7 @@ function HomePageCmp() {
 
     const [userData, setUserData] = useState(null);
     
+    // Load username to fill teh nav bar field
     useEffect(() => {
         const getUserData = async () => {
             try {
@@ -16,16 +17,18 @@ function HomePageCmp() {
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
             }
-        };
+        };  
         getUserData();
     }, [])
     
     return(
 
-        <NavBar userData = {userData}>   
-            <div className = 'w-100'>
-                <h2>Main Content Area</h2>
-                <p>Your application content goes here.</p>
+        <NavBar>   
+            <div className = 'container-xl'>
+                <h2 className = 'text-center'>{userData?.username}'s personnal page</h2>
+                <div className = 'shadow rounded'>
+                    <p>Test du style de praragraphe</p>
+                </div>
             </div>
         </NavBar>
 

@@ -1,4 +1,5 @@
-import { FaChartPie, FaChartLine, FaCalendarAlt, FaBook, FaTasks, FaUsers, FaCog } from 'react-icons/fa';
+import { FaChartPie, FaChartLine, FaDna, FaUsers, FaCog } from 'react-icons/fa';
+import { GiDna2, GiMolecule } from 'react-icons/gi';
 import { MdDashboard, MdNotifications } from 'react-icons/md';
 import Logo from '../../../shared/ui/components/Logo';
 import LogoutBtn from '../../../shared/ui/components/LogoutBtn';
@@ -8,13 +9,12 @@ import { useState } from 'react';
 
 /**
  * NavBar component to load the navigation bar on the left of any web page
- * Take 2 props as arguments:
- *  - userData object to display the username and handle user permission ?
+ * Take 1 props as arguments:
  *  - children JSX code to add on the right of the nav bar
  * @param {import('react').PropsWithChildren} param0 
  * @returns 
  */
-function NavBar({userData, children}) {
+function NavBar({children}) {
 
     const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -73,38 +73,15 @@ function NavBar({userData, children}) {
                                     }}
 
                                 >
-                                    <MenuItem icon={<MdDashboard />}> Dashboard </MenuItem>
+                                    <MenuItem icon={<MdDashboard />}> My data </MenuItem>
                                     
                                     {/* Analytics Section */}
-                                    <SubMenu label="Analytics" icon={<FaChartPie />}>
-                                        <MenuItem icon={<FaChartPie />}> Pie Charts </MenuItem>
-                                        <MenuItem icon={<FaChartLine />}> Line Charts </MenuItem>
+                                    <SubMenu label="Import" icon={<FaChartPie />}>
+                                        <MenuItem icon={ <FaDna />} onClick={() => console.log("Coucou")}> DNA </MenuItem>
+                                        <MenuItem icon={<GiDna2  />}> RNA </MenuItem>
+                                        <MenuItem icon={<GiMolecule />}> Protein </MenuItem>
                                     </SubMenu>
                                     
-                                    {/* Content Section */}
-                                    <SubMenu label="Content" icon={<FaBook />}>
-                                        <MenuItem icon={<FaBook />}> Documentation </MenuItem>
-                                        <MenuItem icon={<FaTasks />}> Tasks </MenuItem>
-                                    </SubMenu>
-                                    
-                                    {/* Calendar avec badge */}
-                                    <MenuItem icon={<FaCalendarAlt />} suffix={
-                                        <div style={{ 
-                                            background: '#ff5252', 
-                                            color: 'white', 
-                                            borderRadius: '50%', 
-                                            width: '20px', 
-                                            height: '20px', 
-                                            display: 'flex', 
-                                            alignItems: 'center', 
-                                            justifyContent: 'center',
-                                            fontSize: '12px'
-                                        }}>
-                                            3
-                                        </div>
-                                    }> 
-                                        Calendar 
-                                    </MenuItem>
                                     
                                     <MenuItem icon={<MdNotifications />}> Notifications </MenuItem>
                                     <MenuItem icon={<FaUsers />}> Team </MenuItem>
@@ -122,11 +99,6 @@ function NavBar({userData, children}) {
                         <div className='d-flex justify-content-evenly align-items-center py-3 pe-auto' 
                              style={{backgroundColor: "oklch(70% 0.18 290)"}}
                         >
-                            {!isCollapsed && (
-                                <>
-                                    <span className = 'font-weight-bold'>Username:</span> {userData ? userData.username : "User"}
-                                </>
-                            )}
                             {/* Logout button */}
                             <LogoutBtn />
                         </div>
