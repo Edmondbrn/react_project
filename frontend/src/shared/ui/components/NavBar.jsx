@@ -18,7 +18,6 @@ function NavBar({userData, children}) {
 
     const [isCollapsed, setIsCollapsed] = useState(true);
 
-    console.log(userData);
     return (
         <>
             {/* d-flex because we want the nav bar and the content to be aligned as rows */}
@@ -28,7 +27,6 @@ function NavBar({userData, children}) {
                     collapsedWidth='100px'
                     rootStyles={{
                         [`.${sidebarClasses.container}`]: {
-                            backgroundColor: '#f8f9fa',
                             boxShadow: '0 4px 12px 0 rgba(0, 0, 0, 0.05)',
                             borderRight: '1px solid #e9ecef',
                         },
@@ -38,17 +36,17 @@ function NavBar({userData, children}) {
                     <div className='d-flex flex-column justify-content-between h-100'>
 
                         {/* Logo and app name*/}
-                        <div className = "text-center border-bottom mb-3">
+                        <div className = "text-center border-bottom bg-light rounded ">
                             <Logo logoWidth = "70%" />
                         </div>
 
                         {/* Menu options */}
-                        <div className = 'flex-grow-1'>
+                        <div className = 'flex-grow-1' style={{backgroundColor: 'oklch(60.6% 0.25 292.717)'}}>
 
                             <div className = 'd-flex flex-column'>
 
                                 <button 
-                                    className='btn-sm btn-light border rounded mx-3 shadow-sm' 
+                                    className='btn-sm btn-light border rounded mx-3 my-2 shadow-sm' 
                                     style={{fontSize : "0.8em"}}
                                     onClick={() => setIsCollapsed(!isCollapsed)}
                                 >
@@ -121,7 +119,9 @@ function NavBar({userData, children}) {
                         </div>
 
                         {/* User profile at bottom */}
-                        <div className='d-flex justify-content-evenly align-items-center border-top py-3 pe-auto'>
+                        <div className='d-flex justify-content-evenly align-items-center py-3 pe-auto' 
+                             style={{backgroundColor: "oklch(70% 0.18 290)"}}
+                        >
                             {!isCollapsed && (
                                 <>
                                     <span className = 'font-weight-bold'>Username:</span> {userData ? userData.username : "User"}
