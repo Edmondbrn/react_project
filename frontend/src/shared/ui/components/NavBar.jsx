@@ -31,7 +31,9 @@ function NavBar({children}) {
                         [`.${sidebarClasses.container}`]: {
                             boxShadow: '0 4px 12px 0 rgba(0, 0, 0, 0.05)',
                             borderRight: '1px solid #e9ecef',
-                        },
+                            color: "white",
+                            background: "linear-gradient(to bottom, #888888 60%, #666666 80%, #333333 100%)"
+                        }
                     }}
                 >
                     {/* flex box to align sidebar items in column */}
@@ -43,7 +45,7 @@ function NavBar({children}) {
                         </div>
 
                         {/* Menu options */}
-                        <div className = 'flex-grow-1' style={{backgroundColor: 'oklch(60.6% 0.25 292.717)'}}>
+                        <div className = 'flex-grow-1' >
 
                             <div className = 'd-flex flex-column'>
 
@@ -55,33 +57,32 @@ function NavBar({children}) {
                                     {isCollapsed ? "Expand" : "Collapse" }
                                 </button>
 
-                                <Menu 
-                                
-                                    menuItemStyles={{
-                                        button: ({ level, active }) => {
-                                            return {
-                                                backgroundColor: active ? '#e9ecef' : undefined,
-                                                '&:hover': {
-                                                    backgroundColor: '#f1f3f5',
+                                    <Menu 
+                                        menuItemStyles={{
+                                            button: ({ level, active }) => {
+                                                const hoverStyle = {
+                                                    backgroundColor: 'rgba(241, 243, 245, 0.2)',
                                                     borderRadius: '8px',
                                                     marginLeft: '8px',
-                                                    marginRight: '8px',
-                                                },
-                                                borderRadius: active ? '8px' : undefined,
-                                                marginLeft: active ? '8px' : undefined,
-                                                marginRight: active ? '8px' : undefined,
-                                            };
-                                        },
-                                    }}
-
-                                >
+                                                    marginRight: '8px'
+                                                };
+                                                
+                                                return {
+                                                    '&:hover': hoverStyle,
+                                                };
+                                            }
+                                        }}
+                                    >
                                     <MenuItem icon={<MdDashboard />}> My data </MenuItem>
                                     
                                     {/* Analytics Section */}
                                     <SubMenu label="Import" icon={<FaChartPie />}>
-                                        <MenuItem icon={ <FaDna />} onClick={() => navigate("/import/dna")}> DNA </MenuItem>
-                                        <MenuItem icon={<GiDna2  />}> RNA </MenuItem>
-                                        <MenuItem icon={<GiMolecule />}> Protein </MenuItem>
+                                    {/* Force the color to be black, Pro sidebar bugs */}
+                                        <div style={{color : "black"}}> 
+                                            <MenuItem  icon={ <FaDna />} onClick={() => navigate("/import/dna")}> DNA </MenuItem>
+                                            <MenuItem  icon={<GiDna2  />}> RNA </MenuItem>
+                                            <MenuItem  icon={<GiMolecule />}> Protein </MenuItem>
+                                        </div>
                                     </SubMenu>
                                     
                                     
@@ -98,10 +99,9 @@ function NavBar({children}) {
                         </div>
 
                         {/* User profile at bottom */}
-                        <div className='d-flex justify-content-evenly align-items-center py-3 pe-auto' 
-                             style={{backgroundColor: "oklch(70% 0.18 290)"}}
-                        >
+                        <div className='d-flex justify-content-center align-items-center border-top border-white py-3 pe-auto'>
                             {/* Logout button */}
+                            {!isCollapsed && <p>Logout</p>}
                             <LogoutBtn />
                         </div>
                     </div>
