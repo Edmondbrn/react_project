@@ -4,6 +4,7 @@ version: '3'
 services:
   backend:
     build: ./backend
+    tty: true # display print in backend logs
     volumes:
       - ./backend:/app # avoid re building after python code change (TODO remove in prod ?)
       - ./certs:/app/certs:ro # mount in ReadOnly mode the SSL certificate for https

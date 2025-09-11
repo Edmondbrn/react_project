@@ -10,7 +10,7 @@ import Card from "../../../../shared/ui/components/Card";
 
 export default function ImportDnaForm() {
 
-    const {importData, setImportData} = useDnaImport();
+    const {importData, setImportData, getNcbiGeneData} = useDnaImport();
     const [isLoading, setIsLoading] = useState(false);
 
     return(
@@ -41,7 +41,7 @@ export default function ImportDnaForm() {
                                     groupLabel = "NCBI identifier*"
                                     btnText = "Load"
                                     isLoading = {isLoading}
-                                    onClickFunction = {() => console.log("test")}
+                                    onClickFunction = {getNcbiGeneData}
                                 />
                             </div>
                           }
