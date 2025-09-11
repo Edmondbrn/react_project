@@ -10,8 +10,7 @@ import Card from "../../../../shared/ui/components/Card";
 
 export default function ImportDnaForm() {
 
-    const {importData, setImportData, getNcbiGeneData} = useDnaImport();
-    const [isLoading, setIsLoading] = useState(false);
+    const {importData, setImportData, getNcbiGeneData, isLoading} = useDnaImport();
 
     return(
         <>
