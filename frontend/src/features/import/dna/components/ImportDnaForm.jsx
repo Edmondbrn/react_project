@@ -1,5 +1,6 @@
+import { useState } from "react";
 import ContainerXl from "../../../../shared/ui/components/ContainerXl";
-import FormField from "../../../../shared/ui/components/FormField";
+import GroupFormBtn from "../../../../shared/ui/components/GroupFormBtn";
 import NavBar from "../../../../shared/ui/components/NavBar";
 import { handleChange } from "../../../../shared/ui/hooks/handleChangeForm";
 import { useDnaImport } from "../hooks/useDnaImport";
@@ -9,6 +10,7 @@ import { useDnaImport } from "../hooks/useDnaImport";
 export default function ImportDnaForm() {
 
     const {importData, setImportData} = useDnaImport();
+    const [isLoading, setIsLoading] = useState(false);
 
     return(
         <>
@@ -16,15 +18,19 @@ export default function ImportDnaForm() {
 
                 <ContainerXl>
 
-                    <FormField 
-                        label = "NCBI identifier" 
-                        name = "ncbiIdentifier" 
-                        type = "text" 
-                        value = {importData?.ncbiIdentifier} 
-                        onChange = {handleChange(importData, setImportData)} 
-                        error = {null}
+                    <GroupFormBtn 
+                        showFormLabel = {false}
+                        formName = "ncbiIdentifier" 
+                        formType = "text" 
+                        formValue = {importData?.ncbiIdentifier} 
+                        formOnChange = {handleChange(importData, setImportData)} 
+                        formError = {null}
+                        groupLabel = "NCBI identifier*"
+                        btnText = "Load"
+                        isLoading = {isLoading}
+                        onClickFunction = {() => console.log("test")}
                     />
-                    
+
                 </ContainerXl>
                 
 

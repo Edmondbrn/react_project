@@ -36,6 +36,7 @@ return (
                         label="Username"
                         name="username"
                         type="text"
+                        className = "mb-3"
                         value={formData.username}
                         onChange={changeHandler}
                         error={errors.username}

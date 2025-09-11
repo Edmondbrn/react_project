@@ -4,12 +4,12 @@
  * @param {Object} param0 
  * @returns 
  */
-function LoadingBtn({text, isLoading, onClickFunction}) {
+function LoadingBtn({text, isLoading, onClickFunction, className = ""}) {
 
     return(
             <button 
                 type="submit" 
-                className="btn btn-primary my-3 w-100" 
+                className={className === "" ? "btn btn-primary my-3 w-100" : className} 
                 disabled={isLoading}
                 onClick={onClickFunction}>
                 {isLoading ? (

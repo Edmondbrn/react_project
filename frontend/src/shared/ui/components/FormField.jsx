@@ -3,10 +3,10 @@
  * @param {Object} param0 
  * @returns 
  */
-function FormField({ label, name, type, value, onChange, error, icon, showLabel = true }) {
+function FormField({ label, name, type, value, onChange, error, icon, showLabel = true, className = "", id = null }) {
   if (icon) {
     return (
-      <div className="mb-3">
+      <div className = {className}>
         {showLabel && <label className="form-label">{label}</label>}
         <div className="input-group">
           <span className="input-group-text">{icon}</span>
@@ -14,6 +14,7 @@ function FormField({ label, name, type, value, onChange, error, icon, showLabel 
             type={type || 'text'}
             name={name}
             className={`form-control ${error ? 'is-invalid' : ''}`}
+            id = {id}
             value={value}
             onChange={onChange}
             placeholder={!showLabel ? label : undefined}
@@ -25,12 +26,13 @@ function FormField({ label, name, type, value, onChange, error, icon, showLabel 
   }
 
   return (
-    <div className="mb-3">
-      <label className="form-label">{label}</label>
+    <div className = {className}>
+      {showLabel && <label className="form-label">{label}</label>}
       <input
         type={type || 'text'}
         name={name}
         className={`form-control ${error ? 'is-invalid' : ''}`}
+        id = {id}
         value={value}
         onChange={onChange}
       />

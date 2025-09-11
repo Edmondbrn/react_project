@@ -38,6 +38,7 @@ function SigninForm() {
                     <FormField
                         label="Username"
                         name="username"
+                        className = "mb-3"
                         type="text"
                         value={formData.username}
                         onChange={changeHandler}
@@ -48,6 +49,7 @@ function SigninForm() {
                     <FormField
                         label="Last name"
                         name="last_name"
+                        className = "mb-3"
                         type="text"
                         value={formData.last_name}
                         onChange={changeHandler}
@@ -57,6 +59,7 @@ function SigninForm() {
                     <FormField
                         label="First name"
                         name="first_name"
+                        className = "mb-3"
                         type="text"
                         value={formData.first_name}
                         onChange={changeHandler}
@@ -66,6 +69,7 @@ function SigninForm() {
                     <FormField
                         label="Email"
                         name="email"
+                        className = "mb-3"
                         type="text"
                         value={formData.email}
                         onChange={changeHandler}
@@ -75,6 +79,7 @@ function SigninForm() {
                     <FormField
                         label="Password"
                         name="password"
+                        className = "mb-3"
                         type="password"
                         value={formData.password}
                         onChange={changeHandler}
@@ -84,6 +89,7 @@ function SigninForm() {
                     <FormField
                         label="Confirm password"
                         name="confirmPassword"
+                        className = "mb-3"
                         type="password"
                         value={formData.confirmPassword}
                         onChange={changeHandler}
