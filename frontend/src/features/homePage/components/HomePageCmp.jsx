@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import NavBar from '../../../shared/ui/components/NavBar';
+import ContainerXl from '../../../shared/ui/components/ContainerXl';
 import axiosInstance from '../../../shared/utils/axiosConfiguration/axios';
 
 
@@ -24,12 +25,12 @@ function HomePageCmp() {
     return(
 
         <NavBar>   
-            <div className = 'container-xl'>
+            <ContainerXl>
                 <h2 className = 'text-center'>{userData?.username}'s personnal page</h2>
                 <div className = 'shadow rounded'>
                     <p>Test du style de praragraphe</p>
                 </div>
-            </div>
+            </ContainerXl>
         </NavBar>
 
     );
