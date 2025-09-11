@@ -25,7 +25,7 @@ function Card({ title, subTitle = null,  bodyContent, footerContent = null }) {
 
       <BootstrapCard.Body>
         {subTitle && <BootstrapCard.Title>{subTitle}</BootstrapCard.Title>}
-        <BootstrapCard.Text>{bodyContent}</BootstrapCard.Text>
+        {bodyContent}
       </BootstrapCard.Body>
 
 
