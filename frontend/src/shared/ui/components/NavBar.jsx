@@ -1,10 +1,11 @@
-import { FaChartPie, FaChartLine, FaDna, FaUsers, FaCog } from 'react-icons/fa';
+import { FaChartPie, FaDna, FaUsers, FaCog } from 'react-icons/fa';
 import { GiDna2, GiMolecule } from 'react-icons/gi';
 import { MdDashboard, MdNotifications } from 'react-icons/md';
 import Logo from '../../../shared/ui/components/Logo';
 import LogoutBtn from '../../../shared/ui/components/LogoutBtn';
 import { Sidebar, Menu, MenuItem, SubMenu, sidebarClasses } from 'react-pro-sidebar';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 /**
@@ -16,7 +17,8 @@ import { useState } from 'react';
  */
 function NavBar({children}) {
 
-    const [isCollapsed, setIsCollapsed] = useState(true);
+    const [isCollapsed, setIsCollapsed] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <>
@@ -77,7 +79,7 @@ function NavBar({children}) {
                                     
                                     {/* Analytics Section */}
                                     <SubMenu label="Import" icon={<FaChartPie />}>
-                                        <MenuItem icon={ <FaDna />} onClick={() => console.log("Coucou")}> DNA </MenuItem>
+                                        <MenuItem icon={ <FaDna />} onClick={() => navigate("/import/dna")}> DNA </MenuItem>
                                         <MenuItem icon={<GiDna2  />}> RNA </MenuItem>
                                         <MenuItem icon={<GiMolecule />}> Protein </MenuItem>
                                     </SubMenu>
