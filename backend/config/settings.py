@@ -51,7 +51,10 @@ INSTALLED_APPS = [
     # Local apps
     'users',
     'gene_rna_prot',
+    'utils.utils_config.UtilsConfig'
 ]
+
+
 
 
 MIDDLEWARE = [
