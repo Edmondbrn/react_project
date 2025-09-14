@@ -5,12 +5,14 @@ import NavBar from "../../../../shared/ui/components/NavBar";
 import { handleChange } from "../../../../shared/ui/hooks/handleChangeForm";
 import { useDnaImport } from "../hooks/useDnaImport";
 import Card from "../../../../shared/ui/components/Card";
+import ErrorAlert from "../../../../shared/ui/components/ErrorAlert";
+import SuccessAlert from "../../../../shared/ui/components/SuccessAlert";
 
 
 
 export default function ImportDnaForm() {
 
-    const {importData, setImportData, getNcbiGeneData, isLoading} = useDnaImport();
+    const {importData, setImportData, getNcbiGeneData, isLoading, error, results} = useDnaImport();
 
     return(
         <>
@@ -27,26 +29,29 @@ export default function ImportDnaForm() {
 
                     <Card title={"Import from NCBI"}
                           bodyContent = {
-                            <div className = "mx-3">
-                                <GroupFormBtn 
-                                    showFormLabel = {false}
-                                    formName = "ncbiIdentifier" 
-                                    formType = "text" 
-                                    formValue = {importData?.ncbiIdentifier} 
-                                    formOnChange = {handleChange(importData, setImportData)} 
-                                    formError = {null}
-                                    formId = "importNcbiForm"
-                                    formClassName = "w-25"
-                                    groupLabel = "NCBI identifier*"
-                                    btnText = "Load"
-                                    isLoading = {isLoading}
-                                    onClickFunction = {getNcbiGeneData}
-                                />
-                            </div>
+                            <>
+                                {/* Error message if an error has been thrown */}
+                                {error && <ErrorAlert errorMessage = {error}/>}
+                                <div className = "mx-3">
+                                    <GroupFormBtn 
+                                        showFormLabel = {false}
+                                        formName = "ncbiIdentifier" 
+                                        formType = "text" 
+                                        formValue = {importData?.ncbiIdentifier} 
+                                        formOnChange = {handleChange(importData, setImportData)} 
+                                        formError = {null}
+                                        formId = "importNcbiForm"
+                                        formClassName = "w-25"
+                                        groupLabel = "NCBI identifier*"
+                                        btnText = "Load"
+                                        isLoading = {isLoading}
+                                        onClickFunction = {getNcbiGeneData}
+                                    />
+                                </div>
+                                {results && <SuccessAlert successMessage = {JSON.stringify(results)} />}
+                            </>
                           }
                     >
-                        
-
                     </Card>
 
                 </ContainerXl>

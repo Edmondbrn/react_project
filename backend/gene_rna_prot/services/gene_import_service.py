@@ -18,7 +18,7 @@ def get_nucleotide_data(nucleotide_identifier : str) -> tuple[str, int]:
     search_handle.close()
     
     if not search_results["IdList"]:
-        return ""
+        return "", -1
     
     # collect data from the raw response
     fetch_handle = Entrez.efetch(db = "nucleotide", 
@@ -70,7 +70,7 @@ def parse_gene_nucleotide_file(record : SeqRecord.SeqRecord) -> GeneImportResult
 
 def handle_gene(feat: SeqFeature.SeqFeature, qualifiers: dict) -> dict:
     return {
-        "coord": feat.location,
+        "coord": str(feat.location),
         "xref": string_list_to_dict(qualifiers.get("db_xref", [])),
         "name": qualifiers.get("gene", ["Unknown"])[0],
         "synonyms": string_to_list(qualifiers.get("gene_synonym", [""])[0]),

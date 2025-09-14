@@ -25,7 +25,7 @@ def get_ncbi_gene_data(request : Request) -> Response:
     # get the identifier from the HTTP GET query
     ncbi_identifier = request.query_params.get("ncbi_identifier", "")
     if not ncbi_identifier: # if not present in the request
-        return Response({"error": "No NCBI identifier provided"}, 
+        return Response({"error": "No NCBI identifier provided."}, 
                         status=status.HTTP_400_BAD_REQUEST)
     
     Entrez.email = os.getenv("MAIL", "") # get mail from env variables
@@ -33,7 +33,7 @@ def get_ncbi_gene_data(request : Request) -> Response:
     try:
         data, search_ID = get_nucleotide_data(ncbi_identifier) # fetch data from the Nucleotide database
         if data == "":
-            return Response({"error": f"No results found for {ncbi_identifier}"}, 
+            return Response({"error": f"No result found for {ncbi_identifier}."}, 
                         status=status.HTTP_404_NOT_FOUND)
 
         file_name = tmp_file(data) # The GeneBank parser needs a text file
